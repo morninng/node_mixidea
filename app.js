@@ -12,7 +12,7 @@ var ectRenderer = ECT({ watch: true, root: __dirname + '/views', ext : '.ect' })
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
-
+console.log("test");
 var app = express();
 
 // view engine setup
@@ -21,6 +21,14 @@ var app = express();
 app.engine('ect', ectRenderer.render);
 app.set('view engine', 'ect');
 
+
+app.use(function(req, res, next) {
+    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+        res.redirect('https://' + req.get('Host') + req.url);
+    }
+    else
+        next();
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
