@@ -5,4 +5,7 @@ ssh -i "/home/yuta/.ssh/mixidea_key.pem" ubuntu@ec2-52-91-8-237.compute-1.amazon
 
 sudo rsync -avz -e "ssh -i /home/yuta/.ssh/mixidea_key.pem" --exclude='public/*' --exclude='node_modules/*' --exclude='.git/*' /home/yuta/development/Angular2/node_server/ ubuntu@ec2-52-91-8-237.compute-1.amazonaws.com:/home/ubuntu/src/node_server
 
+sudo rsync -avz -e "ssh -i /home/morninng/.ssh/mixidea_key.pem" --exclude='public/*' --exclude='node_modules/*' --exclude='.git/*' /home/morninng/development/nodejs/node_mixidea ubuntu@ec2-52-91-8-237.compute-1.amazonaws.com:/home/ubuntu/src/node_server
+
+
 ec2-52-91-8-237.compute-1.amazonaws.com
