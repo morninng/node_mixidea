@@ -12,6 +12,7 @@ var ectRenderer = ECT({ watch: true, root: __dirname + '/views', ext : '.ect' })
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
+var admin = require('./routes/admin');
 console.log("test");
 var app = express();
 
@@ -39,6 +40,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/users', users);
+app.use('/admin', admin);
 app.use('/', index);
 
 // catch 404 and forward to error handler
