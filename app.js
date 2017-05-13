@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
+var url = require('url');
 var ECT = require('ect');
 var ectRenderer = ECT({ watch: true, root: __dirname + '/views', ext : '.ect' });
 
@@ -31,6 +32,26 @@ app.use(function(req, res, next) {
     else
         next();
 });
+
+const ogp_generate = require("./lib/ogp_generate.js");
+
+app.use(function(req, res, next){
+
+
+  const user_agent = req.headers['user-agent']
+  console.log("user agent", user_agent);  
+  if(user_agent.indexOf("facebookexternalhit/1.1") === 0){
+    console.log("the user agent is facebook");
+    console.log("request url", req.url);
+    const full_url = 'https://' + req.headers.host + req.url;
+    const response_htmle = ogp_generate.respond_ogp(req, res, next, full_url, req.url);
+    return;
+  }else{
+    next();
+  }
+
+})
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
